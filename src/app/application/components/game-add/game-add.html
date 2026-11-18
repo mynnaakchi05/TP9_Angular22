@@ -1,42 +1,46 @@
-<div class="container">
+<div class="container mt-4">
     <h3>Ajout d'un jeu</h3>
-    <form>
-        <div>
-            <label for="gameName">Nom</label>
-            <input type="text" id="gameName" >
-        </div>
-        <div>
-            <label for="gamePrice">Prix</label>
-            <input type="number" id="gamePrice" >
+    
+    <form [formRoot]="gameForm" (submit)="onSubmit()">
+        <div class="mb-3">
+            <label for="gameName" class="form-label">Nom</label>
+            <input type="text" id="gameName" class="form-control" [formField]="gameForm.name">
         </div>
 
-        <div>
-            <label> Made In </label>
-            <label>
-                <input type="radio" value="Tunisie" >Tunisie
-            </label>
-            <label>
-                <input type="radio" value="Autre" >Autre
-            </label>
+        <div class="mb-3">
+            <label for="gamePrice" class="form-label">Prix</label>
+            <input type="number" id="gamePrice" class="form-control" [formField]="gameForm.price">
         </div>
-        <div>
-            <label for="gameCategory">Catégorie</label>
-            <select id="gameCategory" >
 
+        <div class="mb-3">
+            <label class="form-label">Made In</label>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" value="Tunisie" [formField]="gameForm.madeIn" id="madeInTunisie">
+                <label class="form-check-label" for="madeInTunisie">Tunisie</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" value="Autre" [formField]="gameForm.madeIn" id="madeInAutre">
+                <label class="form-check-label" for="madeInAutre">Autre</label>
+            </div>
+        </div>
 
+        <div class="mb-3">
+            <label for="gameCategory" class="form-label">Catégorie</label>
+            <select id="gameCategory" class="form-select" [formField]="gameForm.category">
+                @for (cat of categories; track $index) {
+                    <option [value]="cat">{{ cat }}</option>
+                }
             </select>
         </div>
-        <div>
-            <label for="gameIsNew">
-                <input type="checkbox" id="gameIsNew" > Nouveau
-            </label>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="gameIsNew" [formField]="gameForm.isNew">
+            <label class="form-check-label" for="gameIsNew">Nouveau</label>
         </div>
 
-        <div>
-            <input type="submit" class="btn btn-success" value="Ajouter">
-            <input type="reset" class="btn btn-warning"  value="Effacer">
+        <div class="mb-3">
+            <button type="submit" class="btn btn-success me-2">Ajouter</button>
+            <button type="reset" class="btn btn-warning">Effacer</button>
         </div>
     </form>
-
 </div>
-
