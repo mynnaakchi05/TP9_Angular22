@@ -5,11 +5,27 @@
         <div class="mb-3">
             <label for="gameName" class="form-label">Nom</label>
             <input type="text" id="gameName" class="form-control" [formField]="gameForm.name">
+            
+            @if (gameForm.name().invalid() && gameForm.name().dirty()) {
+                @for (error of gameForm.name().errors(); track $index) {
+                    <div class="alert alert-danger mt-1 p-1">
+                        {{ error.message }}
+                    </div>
+                }
+            }
         </div>
 
         <div class="mb-3">
             <label for="gamePrice" class="form-label">Prix</label>
             <input type="number" id="gamePrice" class="form-control" [formField]="gameForm.price">
+            
+            @if (gameForm.price().invalid() && gameForm.price().dirty()) {
+                @for (error of gameForm.price().errors(); track $index) {
+                    <div class="alert alert-warning mt-1 p-1">
+                        {{ error.message }}
+                    </div>
+                }
+            }
         </div>
 
         <div class="mb-3">
@@ -39,7 +55,7 @@
         </div>
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-success me-2">Ajouter</button>
+            <button type="submit" class="btn btn-success me-2" [disabled]="gameForm().invalid()">Ajouter</button>
             <button type="reset" class="btn btn-warning">Effacer</button>
         </div>
     </form>

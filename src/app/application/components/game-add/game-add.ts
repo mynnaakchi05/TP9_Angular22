@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { form, FormField, FormRoot } from '@angular/forms/signals';
+import { form, FormField, FormRoot, required, pattern, min } from '@angular/forms/signals';
 import { signal } from '@angular/core';
 import { Game } from '../../models/game';
 import { Category } from '../../models/category';
@@ -25,7 +25,12 @@ export class GameAdd {
     shops: []
   });
 
-  readonly gameForm = form(this.gameModel);
+  readonly gameForm = form(this.gameModel, path => {
+    required(path.name, { message: "Nom obligatoire" });
+    pattern(path.name, /^[A-Z].+$/, { message: "Le nom doit commencer par une majuscule" });
+    required(path.price, { message: "Le prix est obligatoire" });
+    min(path.price, 0.1, { message: "Le prix doit être supérieur à 0.1 DT" });
+  });
 
   onSubmit() {
     console.log(this.gameModel());
