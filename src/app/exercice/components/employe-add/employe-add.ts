@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { form, FormField, FormRoot } from '@angular/forms/signals';
+import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { signal } from '@angular/core';
 import { Employe } from '../../models/employe';
 import { Poste, Departement } from '../../models/types';
@@ -26,7 +26,10 @@ export class EmployeAdd {
     diplomes: []
   });
 
-  readonly employeForm = form(this.employeModel);
+  readonly employeForm = form(this.employeModel, path => {
+    required(path.matricule, { message: "Le matricule est obligatoire" });
+    required(path.nom, { message: "Le nom est obligatoire" });
+  });
 
   onSubmit() {
     console.log(this.employeModel());

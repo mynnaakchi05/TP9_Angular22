@@ -5,11 +5,21 @@
         <div class="mb-3">
             <label class="form-label">Donnez le matricule</label>
             <input type="text" class="form-control" [formField]="employeForm.matricule">
+            @if (employeForm.matricule().invalid() && employeForm.matricule().dirty()) {
+                @for (error of employeForm.matricule().errors(); track $index) {
+                    <div class="alert alert-danger mt-1 p-1">{{ error.message }}</div>
+                }
+            }
         </div>
 
         <div class="mb-3">
             <label class="form-label">Donnez le nom</label>
             <input type="text" class="form-control" [formField]="employeForm.nom">
+            @if (employeForm.nom().invalid() && employeForm.nom().dirty()) {
+                @for (error of employeForm.nom().errors(); track $index) {
+                    <div class="alert alert-danger mt-1 p-1">{{ error.message }}</div>
+                }
+            }
         </div>
 
         <div class="p-2 bg-light rounded mb-3">
@@ -38,7 +48,7 @@
         </div>
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-primary me-2">Ajouter Employé</button>
+            <button type="submit" class="btn btn-primary me-2" [disabled]="employeForm().invalid()">Ajouter Employé</button>
             <button type="reset" class="btn btn-secondary">Vider</button>
         </div>
     </form>
