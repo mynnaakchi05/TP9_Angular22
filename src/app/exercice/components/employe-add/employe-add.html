@@ -1,35 +1,45 @@
-<h2> Ajout d'un employé</h2>
-<form>
-    <div>
-        <label> Donnez le matricule</label>
-        <input type="text">
-    </div>
-    <div>
-        <label> Donnez le nom</label>
-        <input type="text">
-    </div>
+<div class="container mt-4">
+    <h2>Ajout d'un employé</h2>
+    
+    <form [formRoot]="employeForm" (submit)="onSubmit()">
+        <div class="mb-3">
+            <label class="form-label">Donnez le matricule</label>
+            <input type="text" class="form-control" [formField]="employeForm.matricule">
+        </div>
 
-    <div class="p-2 bg-light rounded">
-        <strong>Affiliation</strong>
-        <div>
-            <div>
-                <label> Choisissez le département</label>
-                <input type="radio" value="IT"> IT
-                <input type="radio" value="Finance"> Finance
-            </div>
-            <div>
-                <label> Donnez la fonction</label>
-                <select>
+        <div class="mb-3">
+            <label class="form-label">Donnez le nom</label>
+            <input type="text" class="form-control" [formField]="employeForm.nom">
+        </div>
 
-                </select>
+        <div class="p-2 bg-light rounded mb-3">
+            <strong>Affiliation</strong>
+            <div>
+                <div class="mb-2">
+                    <label class="form-label">Choisissez le département</label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" value="IT" [formField]="employeForm.affiliation.departement" id="deptIT">
+                        <label class="form-check-label" for="deptIT">IT</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" value="Finance" [formField]="employeForm.affiliation.departement" id="deptFinance">
+                        <label class="form-check-label" for="deptFinance">Finance</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label">Donnez la fonction</label>
+                    <select class="form-select" [formField]="employeForm.affiliation.poste">
+                        @for (p of postes; track $index) {
+                            <option [value]="p">{{ p }}</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
 
-    <h5>Liste des diplômes</h5>
-
-    <button type="button" class="btn btn-dark btn-sm">Ajouter Diplôme</button>
-    <br>
-    <button class="btn btn-primary">Ajouter Employé</button>
-    <input type="reset" class="btn btn-secondary" value="Vider">
-</form>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary me-2">Ajouter Employé</button>
+            <button type="reset" class="btn btn-secondary">Vider</button>
+        </div>
+    </form>
+</div>
