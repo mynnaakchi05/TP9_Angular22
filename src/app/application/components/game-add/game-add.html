@@ -55,8 +55,29 @@
         </div>
 
         <div class="mb-3">
+            <h4>Points de vente</h4>
+            @for (shop of gameForm.shops; track $index) {
+                <div class="mb-2">
+                    <label class="form-label">Point de vente num: {{$index + 1}}</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" [formField]="shop">
+                        <button type="button" class="btn btn-dark" (click)="onRemoveShop($index)">Supprimer</button>
+                    </div>
+                    @if (shop().invalid() && shop().dirty()) {
+                        @for (err of shop().errors(); track $index) {
+                            <div class="alert alert-info mt-1 p-1">
+                                {{ err.message }}
+                            </div>
+                        }
+                    }
+                </div>
+            }
+            <button type="button" class="btn btn-sm btn-secondary mt-2" (click)="onAddShop()">Ajouter un point de vente</button>
+        </div>
+
+        <div class="mb-3">
             <button type="submit" class="btn btn-success me-2" [disabled]="gameForm().invalid()">Ajouter</button>
-            <button type="reset" class="btn btn-warning">Effacer</button>
+            <button type="button" class="btn btn-warning" (click)="onReset()">Effacer</button>
         </div>
     </form>
 </div>
